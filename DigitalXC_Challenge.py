@@ -2,13 +2,11 @@ import openpyxl
 import re
 
 excel_path = 'C:\\Users\\Optimus Prime\\PycharmProjects\\AssignmentProject\\coding challenge test.xlsx'
-output_file = 'C:\\Users\\Optimus Prime\\PycharmProjects\\AssignmentProject\\coding challenge test output.txt'
+output_file_path = 'C:\\Users\\Optimus Prime\\PycharmProjects\\AssignmentProject\\coding challenge test output.txt'
 
 
-# Printing the list for "Additional Comments" column
-
+# Extracting the groups for "Additional Comments" column
 def extract_groups(file_path, string, column_name):
-
     # Load the Excel file and get the sheet
     workbook = openpyxl.load_workbook(file_path)
     sheet = workbook.active
@@ -26,15 +24,13 @@ def extract_groups(file_path, string, column_name):
     pattern = re.compile(rf"{string} : \[code\]<I>(.*?)</I>\[/code\]", re.IGNORECASE)
     group_list = []
 
-    # Loop through rows to find and process groups
     for row in sheet.iter_rows(min_row=2, values_only=True):
 
-        # Check if the entire row is empty.It iterates only till the row which has data, not the entire row of sheet
+        # Check if the entire row is empty. Iterates only till the row which has data, not the entire row of sheet
         if all(cell is None for cell in row):
             break
         # Get the cell value from the target column
         cell = row[column_index]
-        # Check if the cell has text and the keyword
         if cell and isinstance(cell, str) and string in cell:
             match = pattern.search(cell)
             if match:
@@ -42,7 +38,6 @@ def extract_groups(file_path, string, column_name):
                 groups = match.group(1).split(",")
                 group_list.extend(group.strip() for group in groups if group)
 
-    # Count each unique group and return
     counts = {}
     for item in group_list:
         if item in counts:
@@ -67,9 +62,8 @@ def print_the_result(data):
         print(f"{group.title():<40}{count:>15}")
 
 
-# Calling the function
 input_file = excel_path
-output_file = output_file
+output_file = output_file_path
 keyword = "Groups"
 column_name = "Additional comments"
 
