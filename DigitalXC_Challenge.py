@@ -2,7 +2,7 @@ import openpyxl
 import re
 
 excel_path = 'C:\\Users\\Optimus Prime\\PycharmProjects\\AssignmentProject\\coding challenge test.xlsx'
-output_file = 'C:\\Users\\Optimus Prime\\PycharmProjects\\AssignmentProject\\coding challenge test output.txt'
+output_file_path = 'C:\\Users\\Optimus Prime\\PycharmProjects\\AssignmentProject\\coding challenge test output.txt'
 
 
 # Extracting the groups for "Additional Comments" column
@@ -63,9 +63,9 @@ def print_the_result(data):
         print(f"{group.title():<40}{count:>15}")
 
 
-# Calling the function
+
 input_file = excel_path
-output_file = output_file
+output_file = output_file_path
 keyword = "Groups"
 column_name = "Additional comments"
 
